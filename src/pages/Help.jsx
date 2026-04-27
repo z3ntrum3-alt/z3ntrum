@@ -109,8 +109,17 @@ export default function Help() {
                 />
               ))}
               {posts.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-faint)', fontSize: 13 }}>
-                  No help requests yet. Post one!
+                <div className="q-empty">
+                  <div className="q-empty-icon">
+                    <Icon name="sparkle" size={22} stroke="var(--text-faint)" />
+                  </div>
+                  <p className="q-empty-title">No help requests yet</p>
+                  <p className="q-empty-body">
+                    When classmates post questions, they'll show up here. Post your own to get the ball rolling.
+                  </p>
+                  <button className="q-btn q-btn-secondary q-btn-sm" onClick={() => setModal(true)}>
+                    <Icon name="plus" size={13} /> Post a help request
+                  </button>
                 </div>
               )}
             </div>

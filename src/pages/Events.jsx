@@ -15,7 +15,8 @@ export default function Events() {
   const [events,  setEvents]  = useState([])
   const [rsvpd,   setRsvpd]   = useState(new Set())
   const [loading, setLoading] = useState(true)
-  const [modal,   setModal]   = useState(false)
+  const [modal,       setModal]       = useState(false)
+  const [deleteTarget, setDeleteTarget] = useState(null)
 
   // new event form state
   const [name,        setName]        = useState('')
@@ -87,6 +88,7 @@ export default function Events() {
 
   const deleteEvent = async (id) => {
     setEvents(ev => ev.filter(e => e.id !== id))
+    setDeleteTarget(null)
     await supabase.from('events').delete().eq('id', id)
   }
 
@@ -170,7 +172,7 @@ export default function Events() {
                           <button
                             className="q-btn q-btn-ghost q-btn-sm"
                             style={{ color: 'var(--danger)', fontSize: 11 }}
-                            onClick={() => deleteEvent(e.id)}
+                            onClick={() => setDeleteTarget(e)}
                           >
                             <Icon name="close" size={11} /> Delete
                           </button>
@@ -182,8 +184,19 @@ export default function Events() {
               })}
 
               {events.length === 0 && (
-                <div className="q-card" style={{ padding: 40, textAlign: 'center', color: 'var(--text-faint)', fontSize: 13.5 }}>
-                  {isAdmin ? 'No events yet — create the first one!' : 'No upcoming events.'}
+                <div className="q-empty">
+                  <div className="q-empty-icon">
+                    <Icon name="calendar" size={22} stroke="var(--text-faint)" />
+                  </div>
+                  <p className="q-empty-title">No upcoming events</p>
+                  <p className="q-empty-body">
+                    {isAdmin ? 'Create the first campus event to get things going.' : 'Check back soon. Admins post events here.'}
+                  </p>
+                  {isAdmin && (
+                    <button className="q-btn q-btn-secondary q-btn-sm" onClick={() => setModal(true)}>
+                      <Icon name="plus" size={13} /> Create Event
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -257,6 +270,21 @@ export default function Events() {
                   <Icon name="plus" size={14} /> {creating ? 'Creating…' : 'Create Event'}
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {deleteTarget && (
+        <div className="q-modal-backdrop" onClick={() => setDeleteTarget(null)}>
+          <div className="q-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 380 }}>
+            <h2 style={{ marginBottom: 8 }}>Delete event?</h2>
+            <p style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 20 }}>
+              <strong>{deleteTarget.name}</strong> will be permanently removed. Students who RSVP'd won't be notified.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+              <button className="q-btn q-btn-ghost" onClick={() => setDeleteTarget(null)}>Cancel</button>
+              <button className="q-btn q-btn-danger" onClick={() => deleteEvent(deleteTarget.id)}>Delete event</button>
             </div>
           </div>
         </div>

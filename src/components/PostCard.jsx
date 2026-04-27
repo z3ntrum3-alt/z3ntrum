@@ -115,7 +115,7 @@ export default function PostCard({ postId, author, dept, time, content, badge, h
             <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>
               Write a message — {author.name.split(' ')[0]} will receive it in their inbox.
             </p>
-            <div style={{ padding: '10px 14px', marginBottom: 14, background: 'var(--surface-2)', borderRadius: 'var(--radius-sm)', fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5, borderLeft: '3px solid var(--accent)' }}>
+            <div style={{ padding: '10px 14px', marginBottom: 14, background: 'var(--accent-soft)', border: '1px solid color-mix(in oklch, var(--accent) 20%, transparent)', borderRadius: 'var(--radius-sm)', fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5 }}>
               {typeof content === 'string' ? content : 'Help request'}
             </div>
             <textarea className="q-textarea" rows={4} placeholder="Describe how you can help…" value={message} onChange={e => setMessage(e.target.value)} />

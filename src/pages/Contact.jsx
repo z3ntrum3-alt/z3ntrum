@@ -58,8 +58,12 @@ export default function Contact() {
               width: 56, height: 56, borderRadius: 16,
               background: 'color-mix(in oklch, var(--success) 15%, transparent)',
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 24, marginBottom: 20,
-            }}>✓</div>
+              marginBottom: 20,
+            }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
             <h1 style={{ fontSize: 22, marginBottom: 8 }}>Request sent!</h1>
             <p style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.7, maxWidth: 360, margin: '0 auto 24px' }}>
               We've received your request and will get back to you within 2–3 working days.

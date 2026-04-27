@@ -140,8 +140,9 @@ export default function Profile() {
                   </div>
                 ))}
                 {helpPosts.length === 0 && (
-                  <div className="q-card" style={{ padding: 20, textAlign: 'center', color: 'var(--text-faint)', fontSize: 13 }}>
-                    No active help posts
+                  <div className="q-empty" style={{ padding: '28px 16px' }}>
+                    <p className="q-empty-title" style={{ fontSize: 13 }}>No active help posts</p>
+                    <p className="q-empty-body" style={{ fontSize: 12 }}>Post a help request and peers can offer to assist you directly.</p>
                   </div>
                 )}
               </div>

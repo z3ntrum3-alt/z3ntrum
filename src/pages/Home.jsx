@@ -23,6 +23,7 @@ export default function Home() {
   const [postType, setPostType] = useState('General')
   const [postText, setPostText] = useState('')
   const [posting, setPosting]   = useState(false)
+  const [posted, setPosted]     = useState(false)
 
   useEffect(() => {
     if (!profile) return
@@ -69,8 +70,10 @@ export default function Home() {
     await supabase.from('posts').insert({ author_id: profile.id, content: postText.trim(), type })
     setPostText('')
     setPostType('General')
-    setModal(false)
     setPosting(false)
+    setPosted(true)
+    setModal(false)
+    setTimeout(() => setPosted(false), 2500)
   }
 
   const removePost = async (id) => {
@@ -114,9 +117,31 @@ export default function Home() {
             ))}
           </div>
 
+          {posted && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '10px 14px',
+              background: 'color-mix(in oklch, var(--success) 12%, var(--surface))',
+              border: '1px solid color-mix(in oklch, var(--success) 30%, transparent)',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: 13, color: 'var(--success)', fontWeight: 500,
+            }}>
+              <Icon name="check" size={14} /> Posted
+            </div>
+          )}
+
           {loading ? <Spinner /> : filtered.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-faint)', fontSize: 13 }}>
-              No posts yet. Be the first to post!
+            <div className="q-empty">
+              <div className="q-empty-icon">
+                <Icon name="home" size={22} stroke="var(--text-faint)" />
+              </div>
+              <p className="q-empty-title">{tab === 'All' ? 'Nothing posted yet' : `No ${tab.toLowerCase()} posts yet`}</p>
+              <p className="q-empty-body">
+                {tab === 'All' ? 'Be the first to share something with campus — a project, a question, or just what you\'re working on.' : `No ${tab.toLowerCase()} posts have been shared yet.`}
+              </p>
+              <button className="q-btn q-btn-secondary q-btn-sm" onClick={() => setModal(true)}>
+                <Icon name="plus" size={13} /> New post
+              </button>
             </div>
           ) : filtered.map(p => (
             <PostCard

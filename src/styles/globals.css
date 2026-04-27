@@ -61,6 +61,9 @@ h1, .q-page-title {
   --accent: oklch(0.7 0.14 280);
   --accent-soft: oklch(0.28 0.08 280);
   --accent-strong: oklch(0.78 0.16 280);
+  --danger: oklch(0.68 0.15 25);
+  --success: oklch(0.68 0.12 150);
+  --warning: oklch(0.78 0.12 70);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -286,6 +289,40 @@ a { color: inherit; }
 
 /* Dividers */
 .q-hr { height: 1px; background: var(--border); border: 0; margin: 0; }
+
+/* Empty states */
+.q-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  gap: 12px;
+}
+.q-empty-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-faint);
+}
+.q-empty-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+.q-empty-body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 280px;
+  margin: 0;
+}
 
 /* Section labels */
 .q-section-label {

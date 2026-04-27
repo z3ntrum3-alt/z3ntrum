@@ -116,9 +116,12 @@ export default function Notifications() {
                 </div>
               ))}
               {notifs.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-faint)' }}>
-                  <Icon name="sparkle" size={28} stroke="var(--border-strong)" />
-                  <p style={{ marginTop: 12, fontSize: 14 }}>No notifications yet</p>
+                <div className="q-empty" style={{ paddingTop: 64 }}>
+                  <div className="q-empty-icon">
+                    <Icon name="bell" size={22} stroke="var(--text-faint)" />
+                  </div>
+                  <p className="q-empty-title">All caught up</p>
+                  <p className="q-empty-body">You'll see activity here when someone responds to your posts or sends you a message.</p>
                 </div>
               )}
             </div>

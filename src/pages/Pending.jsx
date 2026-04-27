@@ -47,10 +47,15 @@ export default function Pending() {
           width: 64, height: 64, borderRadius: 20,
           background: 'color-mix(in oklch, var(--accent) 15%, transparent)',
           display: 'inline-flex', alignItems: 'center',
-          justifyContent: 'center', fontSize: 28, marginBottom: 20,
-        }}>⏳</div>
+          justifyContent: 'center', marginBottom: 20,
+        }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+        </div>
 
-        <h1 style={{ fontSize: 22, marginBottom: 8 }}>You're on the waitlist{name ? `, ${name.split(' ')[0]}` : ''}!</h1>
+        <h1 style={{ fontSize: 22, marginBottom: 8 }}>Pending approval{name ? `, ${name.split(' ')[0]}` : ''}</h1>
         <p style={{ fontSize: 14, color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: 28, maxWidth: 360, margin: '0 auto 28px' }}>
           Your details are being reviewed by an admin. You'll get full access as soon as you're approved — usually within a few hours.
         </p>

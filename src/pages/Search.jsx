@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/Sidebar.jsx'
 import Avatar from '../components/Avatar.jsx'
@@ -8,9 +8,6 @@ import { supabase, fullName, getConversationId } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext.jsx'
 
 function SearchRow({ p, onMessage }) {
-  const navigate = useNavigate()
-  const [connected, setConnected] = useState(false)
-
   return (
     <div className="q-card q-card-hover" style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 12 }}>
       <Avatar name={fullName(p)} size={40} />
@@ -20,25 +17,12 @@ function SearchRow({ p, onMessage }) {
           {p.username} {p.department ? `· ${p.department.split(' ')[0]}` : ''} {p.section ? `· Section ${p.section}` : ''}
         </div>
       </div>
-      <div style={{ display: 'flex', gap: 6 }}>
-        <button
-          className="q-btn q-btn-secondary q-btn-sm"
-          onClick={() => onMessage(p)}
-        >
-          <Icon name="messages" size={12} /> Message
-        </button>
-        <button
-          className="q-btn q-btn-sm"
-          style={connected ? {
-            background: 'color-mix(in oklch, var(--success) 12%, transparent)',
-            color: 'var(--success)',
-            border: '1px solid color-mix(in oklch, var(--success) 30%, transparent)',
-          } : { background: 'var(--accent)', color: '#fff', border: '1px solid var(--accent)' }}
-          onClick={() => setConnected(c => !c)}
-        >
-          {connected ? <><Icon name="check" size={12} /> Connected</> : 'Add Friend'}
-        </button>
-      </div>
+      <button
+        className="q-btn q-btn-secondary q-btn-sm"
+        onClick={() => onMessage(p)}
+      >
+        <Icon name="messages" size={12} /> Message
+      </button>
     </div>
   )
 }
@@ -125,8 +109,12 @@ export default function Search() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {list.map(p => <SearchRow key={p.id} p={p} onMessage={handleMessage} />)}
                   {results.length === 0 && (
-                    <div className="q-card" style={{ padding: 28, textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
-                      No students match "{q}".
+                    <div className="q-empty">
+                      <div className="q-empty-icon">
+                        <Icon name="search" size={22} stroke="var(--text-faint)" />
+                      </div>
+                      <p className="q-empty-title">No results for "{q}"</p>
+                      <p className="q-empty-body">Try searching by name, username, USN, or department.</p>
                     </div>
                   )}
                 </div>

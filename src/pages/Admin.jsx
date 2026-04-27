@@ -195,10 +195,16 @@ export default function Admin() {
                 />
               ))}
               {students.length === 0 && (
-                <div className="q-card" style={{ padding: 40, textAlign: 'center', color: 'var(--text-faint)', fontSize: 14 }}>
-                  {tab === 'pending' ? '🎉 No pending approvals' :
-                   tab === 'approved' ? 'No approved students yet.' :
-                   'No rejected students.'}
+                <div className="q-empty">
+                  <div className="q-empty-icon">
+                    <Icon name="shield" size={22} stroke="var(--text-faint)" />
+                  </div>
+                  <p className="q-empty-title">
+                    {tab === 'pending' ? 'No pending approvals' : tab === 'approved' ? 'No approved students yet' : 'No rejected students'}
+                  </p>
+                  <p className="q-empty-body">
+                    {tab === 'pending' ? 'All caught up. New sign-ups will appear here for review.' : tab === 'approved' ? 'Approved students will appear here.' : 'No rejections on record.'}
+                  </p>
                 </div>
               )}
             </div>
